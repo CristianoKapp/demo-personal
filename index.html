@@ -767,14 +767,35 @@
             });
         });
 
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Obrigado pelo contato! Entraremos em contato em breve para agendar sua avaliação gratuita.');
-            e.target.reset();
-        });
+        // Localize o formulário (form)
+document.getElementById('contactForm').addEventListener('submit', (e) => {
+    // 1. Impede o envio padrão do formulário (evita o recarregamento da página)
+    e.preventDefault(); 
+    
+    // 2. Coleta os valores dos campos
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const message = document.getElementById('message').value;
 
-        // Header scroll effect
+    // 3. Constrói a mensagem
+    let text = `Olá, Personal! 👋%0A`;
+    text += `Gostaria de agendar uma avaliação gratuita.%0A%0A`;
+    text += `*Dados do Interessado:*%0A`;
+    text += `Nome: ${name}%0A`;
+    text += `E-mail: ${email}%0A`;
+    text += `Telefone: ${phone}%0A%0A`;
+    text += `Mensagem: ${message}`;
+    
+    // 4. Cria a URL do WhatsApp com o texto e o número de telefone
+    const whatsappUrl = `https://wa.me/5542999600856?text=${text}`;
+
+    // 5. Abre a URL em uma nova aba
+    window.open(whatsappUrl, '_blank');
+    
+    // 6. Limpa o formulário após o redirecionamento
+    e.target.reset();
+});        // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
             if (window.scrollY > 100) {
